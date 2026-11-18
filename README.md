@@ -1,4 +1,4 @@
-# xcreative.dev
+# xcreative-website
 
 The studio site for **XCreative Studio** — an index of small Chrome extensions, with a page for each one.
 
@@ -71,7 +71,7 @@ Bing Webmaster Tools.
 
 Vercel picks this up with zero configuration:
 
-1. Import `XCreativeStudio/xcreative.dev`.
+1. Import `XCreativeStudio/xcreative-website`.
 2. Framework preset **Next.js** — build `next build`, no output directory override.
 3. Add the domain `xcreative.dev`, then point the registrar's `A` record (or nameservers) at
    Vercel.
