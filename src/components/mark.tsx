@@ -4,15 +4,23 @@ type MarkProps = {
   id?: string;
 };
 
-/** The studio mark: a squircle with a tapered slice, split like a stack of layers. */
+/**
+ * The studio mark: a rounded plate with two tapered slits — a swoosh sweeping up
+ * from the lower left and a notch entering from the right — leaving a horn and a
+ * tail, like a stack of layers peeled apart.
+ */
 export function Mark({ className, id = "xc-mark" }: MarkProps) {
   return (
-    <svg viewBox="0 0 32 32" className={className} fill="currentColor" aria-hidden="true">
-      <mask id={id} maskUnits="userSpaceOnUse" x="0" y="0" width="32" height="32">
-        <rect width="32" height="32" fill="#fff" />
-        <path d="M-1 33 C 7 22 18 11 33 -1 C 18 6 6 19 -1 28 Z" fill="#000" />
+    <svg viewBox="0 0 100 100" className={className} fill="currentColor" aria-hidden="true">
+      <mask id={id} maskUnits="userSpaceOnUse" x="-10" y="-10" width="120" height="120">
+        <rect x="-10" y="-10" width="120" height="120" fill="#fff" />
+        <path d="M0 70 C 10 46 34 30 60 25 C 40 48 20 76 8 104 Z" fill="#000" />
+        <path d="M104 32 C 88 36 72 41 58 47 C 72 45 88 43 104 42 Z" fill="#000" />
       </mask>
-      <rect x="1.8" y="1.8" width="28.4" height="28.4" rx="10.4" mask={`url(#${id})`} />
+      <path
+        d="M28 4 H74 A20 20 0 0 1 94 24 V74 A22 22 0 0 1 72 96 H24 A20 20 0 0 1 4 76 V28 A24 24 0 0 1 28 4 Z"
+        mask={`url(#${id})`}
+      />
     </svg>
   );
 }

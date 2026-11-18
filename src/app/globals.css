@@ -68,7 +68,8 @@
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-instrument-serif);
+  --font-display: var(--font-instrument-serif), "Songti SC", "Source Han Serif SC",
+    "Noto Serif CJK SC", "STSong", serif;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

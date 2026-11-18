@@ -1,31 +1,33 @@
 import Link from "next/link";
 
 import { products } from "@/data/products";
+import type { Locale } from "@/i18n/config";
+import { getDictionary } from "@/i18n/dictionaries";
 
-export function SiteFooter() {
+export function SiteFooter({ locale }: { locale: Locale }) {
+  const t = getDictionary(locale);
+
   return (
     <footer className="mt-24 border-t border-border/70">
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-6 py-12 sm:flex-row sm:items-start sm:justify-between">
         <div className="space-y-2">
           <p className="text-sm font-medium">XCreative Studio</p>
-          <p className="max-w-xs text-sm text-muted-foreground">
-            Small tools, built and maintained by one person.
-          </p>
+          <p className="max-w-xs text-sm text-muted-foreground">{t.footer.tagline}</p>
         </div>
 
         <div className="flex gap-12 text-sm">
           <div className="space-y-2">
             <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-              Products
+              {t.footer.products}
             </p>
             <ul className="space-y-1.5">
               {products.map((product) => (
                 <li key={product.slug}>
                   <Link
-                    href={`/${product.slug}`}
+                    href={`/${locale}/${product.slug}`}
                     className="text-muted-foreground transition-colors hover:text-foreground"
                   >
-                    {product.label}
+                    {product.name}
                   </Link>
                 </li>
               ))}
@@ -34,7 +36,7 @@ export function SiteFooter() {
 
           <div className="space-y-2">
             <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
-              Elsewhere
+              {t.footer.elsewhere}
             </p>
             <ul className="space-y-1.5">
               <li>
@@ -44,7 +46,7 @@ export function SiteFooter() {
                   rel="noreferrer"
                   className="text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  GitHub
+                  {t.footer.github}
                 </a>
               </li>
               <li>
@@ -52,7 +54,7 @@ export function SiteFooter() {
                   href="mailto:xminimalistcreativehub@gmail.com"
                   className="text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  Email
+                  {t.footer.email}
                 </a>
               </li>
             </ul>

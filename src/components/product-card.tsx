@@ -5,11 +5,24 @@ import { ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardDescription, CardHeader } from "@/components/ui/card";
 import type { Product } from "@/data/products";
+import type { Locale } from "@/i18n/config";
+import { cn } from "@/lib/utils";
+import { getDictionary } from "@/i18n/dictionaries";
 
-export function ProductCard({ product }: { product: Product }) {
+type CardProduct = ReturnType<typeof import("@/data/products").localizeProduct>;
+
+export function ProductCard({
+  product,
+  locale,
+}: {
+  product: CardProduct;
+  locale: Locale;
+}) {
+  const t = getDictionary(locale);
+
   return (
     <Link
-      href={`/${product.slug}`}
+      href={`/${locale}/${product.slug}`}
       className="group focus-visible:outline-none"
       aria-label={`${product.name} — ${product.tagline}`}
     >
@@ -44,11 +57,16 @@ export function ProductCard({ product }: { product: Product }) {
         </CardHeader>
 
         <div className="mt-auto flex items-center justify-between border-t px-6 py-4">
-          <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-            Free · Chrome
+          <span
+            className={cn(
+              "font-mono text-[11px] text-muted-foreground",
+              locale === "zh" ? "tracking-[0.08em]" : "uppercase tracking-[0.12em]"
+            )}
+          >
+            {t.product.cardFree}
           </span>
           <span className="inline-flex items-center gap-1 text-sm font-medium">
-            View
+            {t.product.view}
             <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </span>
         </div>

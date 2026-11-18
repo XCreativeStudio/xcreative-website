@@ -1,3 +1,5 @@
+import type { Locale } from "@/i18n/config";
+
 type Release = { tag: string; date: string } | null;
 
 async function getLatestRelease(repo: string): Promise<Release> {
@@ -15,11 +17,19 @@ async function getLatestRelease(repo: string): Promise<Release> {
   }
 }
 
-export async function ReleaseNote({ repo }: { repo: string }) {
+export async function ReleaseNote({
+  repo,
+  label,
+  locale,
+}: {
+  repo: string;
+  label: string;
+  locale: Locale;
+}) {
   const release = await getLatestRelease(repo);
   if (!release) return null;
 
-  const date = new Date(release.date).toLocaleDateString("en-US", {
+  const date = new Date(release.date).toLocaleDateString(locale === "zh" ? "zh-CN" : "en-US", {
     month: "short",
     day: "numeric",
     year: "numeric",
@@ -27,7 +37,7 @@ export async function ReleaseNote({ repo }: { repo: string }) {
 
   return (
     <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted-foreground">
-      Latest release {release.tag} · {date}
+      {label} {release.tag} · {date}
     </p>
   );
 }
