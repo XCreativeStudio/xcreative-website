@@ -17,6 +17,7 @@ Products today:
 | Components | shadcn/ui primitives (`Button`, `Badge`, `Card`, `Separator`) on Radix |
 | Theming | `next-themes` — system default, manual toggle, no flash |
 | Fonts | `next/font` — Geist Sans, Geist Mono, Instrument Serif (display) |
+| Monitoring | `@vercel/speed-insights` — Core Web Vitals from real visitors |
 
 **No TanStack Query.** Every page is prerendered and the only remote data is the latest GitHub
 release, which the product pages fetch at build time with `next.revalidate` (ISR) inside
@@ -56,6 +57,16 @@ public/og, public/og.png        social preview images
    screenshots at 1280×800).
 3. The route, metadata, JSON-LD, sitemap entry, home card, navigation links and the
    "also from the studio" link all follow automatically.
+
+## Speed Insights
+
+`<SpeedInsights />` is mounted once in [`src/app/layout.tsx`](src/app/layout.tsx). It injects
+`/_vercel/speed-insights/script.js`, which only exists on Vercel — locally the request 404s and
+nothing is recorded, which is expected.
+
+After the first deploy, open the project in Vercel → **Speed Insights** → **Enable**. Field data
+appears within a few minutes of the first visit. It reports real-user LCP, INP and CLS per route
+(`/`, `/postmessage-catcher`, `/customize-tab-icon`), so a regression on one page is visible on its own.
 
 ## SEO
 
