@@ -15,14 +15,14 @@ type PageProps = { params: Promise<{ locale: string }> };
 
 const copy = {
   en: {
-    title: "XCreative Studio — small Chrome extensions, made carefully",
+    title: "XCreative Studio — small tools, made carefully",
     description:
-      "Two Chrome extensions from one person: postMessage Catcher, a DevTools panel for window.postMessage, and Changicon, tab icons you choose. Free, local, no accounts.",
+      "An independent studio making small, specific tools. Each one solves a single thing, then stops.",
   },
   zh: {
-    title: "XCreative Studio — 精心制作的 Chrome 小扩展",
+    title: "XCreative Studio — 小工具，认真做",
     description:
-      "一个人的两个 Chrome 扩展：postMessage Catcher，抓取 window.postMessage 的 DevTools 面板；Changicon，给标签页换上你选的图标。免费、本地运行、不需要账号。",
+      "独立工作室，做小而具体的工具。每个都只解决一件事，做完就停。",
   },
 } as const;
 
@@ -85,7 +85,12 @@ export default async function HomePage({ params }: PageProps) {
             {t.home.title}
           </h1>
 
-          <p className="mt-7 max-w-xl text-pretty text-lg leading-relaxed text-muted-foreground">
+          <p
+            className={cn(
+              "mt-7 max-w-xl text-lg leading-relaxed text-muted-foreground",
+              locale === "en" ? "text-balance" : "text-pretty"
+            )}
+          >
             {t.home.lede}
           </p>
 
@@ -127,7 +132,9 @@ export default async function HomePage({ params }: PageProps) {
               <div key={principle.title} className="space-y-3">
                 <Icon className="size-4 text-muted-foreground" strokeWidth={1.75} />
                 <h2 className="text-[15px] font-medium tracking-tight">{principle.title}</h2>
-                <p className="text-sm leading-relaxed text-muted-foreground">{principle.body}</p>
+                <p className="text-sm leading-relaxed text-muted-foreground lg:[word-break:keep-all]">
+                  {principle.body}
+                </p>
               </div>
             );
           })}

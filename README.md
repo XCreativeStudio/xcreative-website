@@ -1,6 +1,8 @@
 # xcreative-website
 
-The studio site for **XCreative Studio** — an index of small Chrome extensions, with a page for each one.
+The studio site for **XCreative Studio** — an index of small tools, with a page for each one.
+Each product carries a `platform` label (`Chrome`, `微信小程序`, `iOS`, …) so the home cards stay
+accurate as the catalogue grows beyond browser extensions.
 
 Products today:
 
@@ -73,9 +75,9 @@ Every page is prerendered twice:
 
 ## Adding a product
 
-1. Append an entry to [`src/data/products.ts`](src/data/products.ts) — slug, name, store/repo
-   URLs, and both `text.en` and `text.zh` blocks (tagline, summary, intro, features, sections,
-   screenshot captions, privacy).
+1. Append an entry to [`src/data/products.ts`](src/data/products.ts) — slug, name, `platform`
+   (shown on the home card as “Free · Chrome”), version, store/repo URLs, and both `text.en` and
+   `text.zh` blocks (tagline, summary, intro, features, sections, screenshot captions, privacy).
 2. Drop its assets into `public/products/<slug>/` (`icon.png`, `marquee.webp`,
    screenshots at 1280×800).
 3. The route, metadata, JSON-LD, sitemap entry, home card, navigation links and the

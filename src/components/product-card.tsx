@@ -63,7 +63,7 @@ export function ProductCard({
               locale === "zh" ? "tracking-[0.08em]" : "uppercase tracking-[0.12em]"
             )}
           >
-            {t.product.cardFree}
+            {t.product.cardFree} · {product.platform}
           </span>
           <span className="inline-flex items-center gap-1 text-sm font-medium">
             {t.product.view}

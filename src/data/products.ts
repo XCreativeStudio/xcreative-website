@@ -13,6 +13,8 @@ export type ProductText = {
 export type Product = {
   slug: string;
   name: string;
+  /** Where it ships, shown on the home card: "Chrome", "微信小程序", "iOS". */
+  platform: string;
   version: string;
   license: string;
   storeUrl: string;
@@ -29,6 +31,7 @@ export const products: Product[] = [
   {
     slug: "postmessage-catcher",
     name: "postMessage Catcher",
+    platform: "Chrome",
     version: "3.0.0",
     license: "MIT",
     storeUrl:
@@ -176,6 +179,7 @@ export const products: Product[] = [
   {
     slug: "customize-tab-icon",
     name: "Changicon",
+    platform: "Chrome",
     version: "1.2.0",
     license: "MIT",
     storeUrl:
