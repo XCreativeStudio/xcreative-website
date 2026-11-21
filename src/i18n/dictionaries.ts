@@ -31,8 +31,13 @@ export type Dictionary = {
     source: string;
     live: string;
     addToChrome: string;
+    downloadZip: string;
+    downloadHint: string;
     readSource: string;
     free: string;
+    ratingOutOf: string;
+    ratings: string;
+    users: string;
     latestRelease: string;
     whatItDoes: string;
     inside: string;
@@ -89,8 +94,13 @@ export const dictionaries: Record<Locale, Dictionary> = {
       source: "Source",
       live: "Live",
       addToChrome: "Add to Chrome",
+      downloadZip: "Download .zip",
+      downloadHint: "Latest release zip — unzip and load it from chrome://extensions",
       readSource: "Read the source",
       free: "Free",
+      ratingOutOf: "out of 5",
+      ratings: "ratings",
+      users: "users",
       latestRelease: "Latest release",
       whatItDoes: "What it does",
       inside: "Inside",
@@ -150,8 +160,13 @@ export const dictionaries: Record<Locale, Dictionary> = {
       source: "源码",
       live: "已上线",
       addToChrome: "添加到 Chrome",
+      downloadZip: "下载压缩包",
+      downloadHint: "最新发布版，解压后在 chrome://extensions 中加载",
       readSource: "阅读源码",
       free: "免费",
+      ratingOutOf: "分（满分 5 分）",
+      ratings: "个评分",
+      users: "位用户",
       latestRelease: "最新版本",
       whatItDoes: "它能做什么",
       inside: "界面",

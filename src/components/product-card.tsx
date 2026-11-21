@@ -2,10 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
+import { StoreStats } from "@/components/store-stats";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardDescription, CardHeader } from "@/components/ui/card";
-import type { Product } from "@/data/products";
 import type { Locale } from "@/i18n/config";
+import type { StoreStats as StoreStatsData } from "@/lib/chrome-web-store";
 import { cn } from "@/lib/utils";
 import { getDictionary } from "@/i18n/dictionaries";
 
@@ -14,9 +15,11 @@ type CardProduct = ReturnType<typeof import("@/data/products").localizeProduct>;
 export function ProductCard({
   product,
   locale,
+  stats,
 }: {
   product: CardProduct;
   locale: Locale;
+  stats?: StoreStatsData | null;
 }) {
   const t = getDictionary(locale);
 
@@ -54,6 +57,7 @@ export function ProductCard({
           <CardDescription className="text-[15px] leading-relaxed">
             {product.summary}
           </CardDescription>
+          {stats ? <StoreStats stats={stats} locale={locale} compact className="text-xs" /> : null}
         </CardHeader>
 
         <div className="mt-auto flex items-center justify-between border-t px-6 py-4">

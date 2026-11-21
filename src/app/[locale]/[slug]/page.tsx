@@ -2,16 +2,19 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowUpRight, ShieldCheck } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Download, ShieldCheck } from "lucide-react";
 
 import { ReleaseNote } from "@/components/release-note";
 import { SectionLabel } from "@/components/section-label";
+import { StoreStats } from "@/components/store-stats";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getProduct, localizeProduct, products } from "@/data/products";
 import { isLocale, locales, type Locale } from "@/i18n/config";
 import { cn } from "@/lib/utils";
 import { getDictionary } from "@/i18n/dictionaries";
+import { getStoreStats } from "@/lib/chrome-web-store";
+import { getLatestRelease } from "@/lib/github";
 
 type PageProps = { params: Promise<{ locale: string; slug: string }> };
 
@@ -67,6 +70,14 @@ export default async function ProductPage({ params }: PageProps) {
   const otherBase = products.find((item) => item.slug !== slug)!;
   const other = localizeProduct(otherBase, locale);
 
+  const [release, stats] = await Promise.all([
+    getLatestRelease(base.repoName),
+    getStoreStats(base),
+  ]);
+
+  const downloadUrl = release?.zipUrl ?? product.download?.url;
+  const downloadFileName = release?.zipName ?? product.download?.fileName;
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -80,6 +91,17 @@ export default async function ProductPage({ params }: PageProps) {
     softwareVersion: product.version,
     inLanguage: locale === "zh" ? "zh-Hans" : "en",
     offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    ...(stats && stats.ratingCount > 0
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: stats.rating,
+            ratingCount: stats.ratingCount,
+            bestRating: 5,
+            worstRating: 1,
+          },
+        }
+      : {}),
     author: {
       "@type": "Organization",
       name: "XCreative Studio",
@@ -142,6 +164,14 @@ export default async function ProductPage({ params }: PageProps) {
                 <ArrowUpRight className="size-4" />
               </a>
             </Button>
+            {downloadUrl ? (
+              <Button asChild size="lg" variant="outline">
+                <a href={downloadUrl} download={downloadFileName} title={t.product.downloadHint}>
+                  {t.product.downloadZip}
+                  <Download className="size-4" />
+                </a>
+              </Button>
+            ) : null}
             <Button asChild size="lg" variant="outline">
               <a href={product.repoUrl} target="_blank" rel="noreferrer">
                 {t.product.readSource}
@@ -157,8 +187,12 @@ export default async function ProductPage({ params }: PageProps) {
             </div>
           </div>
 
-          <div className="mt-5">
-            <ReleaseNote repo={product.repoName} label={t.product.latestRelease} locale={locale} />
+          <div className="mt-5 flex flex-wrap items-center gap-x-3 gap-y-2">
+            {stats ? <StoreStats stats={stats} locale={locale} /> : null}
+            {stats && release ? (
+              <span aria-hidden className="hidden h-3 w-px bg-border sm:block" />
+            ) : null}
+            <ReleaseNote release={release} label={t.product.latestRelease} locale={locale} />
           </div>
         </div>
       </header>

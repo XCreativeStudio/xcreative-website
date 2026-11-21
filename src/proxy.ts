@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 
-import { defaultLocale, isLocale, locales } from "@/i18n/config";
+import { defaultLocale, isLocale } from "@/i18n/config";
 
 function detectLocale(request: NextRequest): string {
   const header = request.headers.get("accept-language") ?? "";
@@ -17,7 +17,7 @@ function detectLocale(request: NextRequest): string {
   return defaultLocale;
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const first = pathname.split("/")[1] ?? "";
 
@@ -34,5 +34,3 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: ["/((?!_next|api|.*\\.[^/]+$).*)"],
 };
-
-export { locales };

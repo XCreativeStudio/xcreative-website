@@ -6,10 +6,11 @@ import { ArrowRight, ArrowUpRight, Lock, PenLine, Ruler } from "lucide-react";
 import { ProductCard } from "@/components/product-card";
 import { SectionLabel } from "@/components/section-label";
 import { Button } from "@/components/ui/button";
-import { localizeProducts } from "@/data/products";
+import { localizeProducts, products } from "@/data/products";
 import { isLocale, type Locale } from "@/i18n/config";
 import { cn } from "@/lib/utils";
 import { getDictionary } from "@/i18n/dictionaries";
+import { getStoreStats } from "@/lib/chrome-web-store";
 
 type PageProps = { params: Promise<{ locale: string }> };
 
@@ -57,6 +58,8 @@ export default async function HomePage({ params }: PageProps) {
 
   const t = getDictionary(locale as Locale);
   const items = localizeProducts(locale);
+  const stats = await Promise.all(products.map((product) => getStoreStats(product)));
+  const statsBySlug = new Map(products.map((product, index) => [product.slug, stats[index]]));
 
   return (
     <>
@@ -119,7 +122,12 @@ export default async function HomePage({ params }: PageProps) {
 
         <div className="mt-8 grid gap-6 md:grid-cols-2">
           {items.map((product) => (
-            <ProductCard key={product.slug} product={product} locale={locale as Locale} />
+            <ProductCard
+              key={product.slug}
+              product={product}
+              locale={locale as Locale}
+              stats={statsBySlug.get(product.slug)}
+            />
           ))}
         </div>
       </section>

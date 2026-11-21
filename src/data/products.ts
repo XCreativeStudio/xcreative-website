@@ -10,6 +10,20 @@ export type ProductText = {
   privacy: string;
 };
 
+/** Fallback for the Chrome Web Store numbers, used when the listing can't be read. */
+export type StoreStatsFallback = {
+  rating: number;
+  ratingCount: number;
+  users: number;
+  usersPlus?: boolean;
+};
+
+export type ProductDownload = {
+  /** A release asset that can be unzipped and loaded as an unpacked extension. */
+  url: string;
+  fileName: string;
+};
+
 export type Product = {
   slug: string;
   name: string;
@@ -20,6 +34,10 @@ export type Product = {
   storeUrl: string;
   repoUrl: string;
   repoName: string;
+  /** Static fallback when the GitHub release API can't resolve the latest zip asset. */
+  download?: ProductDownload;
+  /** Last-known Chrome Web Store numbers, refreshing daily otherwise. */
+  storeStats?: StoreStatsFallback;
   icon: string;
   marquee: string;
   /** Screenshot files, in the same order as `text[locale].screenshots`. */
@@ -38,6 +56,11 @@ export const products: Product[] = [
       "https://chromewebstore.google.com/detail/postmessage-catcher/henlmhlhpgnkeecjjcbhhcfmecohnilo",
     repoUrl: "https://github.com/XCreativeStudio/postMessage-catcher",
     repoName: "XCreativeStudio/postMessage-catcher",
+    download: {
+      url: "https://github.com/XCreativeStudio/postMessage-catcher/releases/download/v3.0.0/postmessage-catcher-3.0.0-chrome.zip",
+      fileName: "postmessage-catcher-3.0.0-chrome.zip",
+    },
+    storeStats: { rating: 4, ratingCount: 4, users: 2000 },
     icon: "/products/postmessage-catcher/icon.png",
     marquee: "/products/postmessage-catcher/marquee.webp",
     screenshotSrcs: [
@@ -186,6 +209,11 @@ export const products: Product[] = [
       "https://chromewebstore.google.com/detail/changicon/pcnnpfojchdoapfnaanpibdkjbdmglhi",
     repoUrl: "https://github.com/XCreativeStudio/customize-tab-icon",
     repoName: "XCreativeStudio/customize-tab-icon",
+    download: {
+      url: "https://github.com/XCreativeStudio/customize-tab-icon/releases/download/v1.2.0/changicon-1.2.0-chrome.zip",
+      fileName: "changicon-1.2.0-chrome.zip",
+    },
+    storeStats: { rating: 5, ratingCount: 5, users: 317 },
     icon: "/products/customize-tab-icon/icon.png",
     marquee: "/products/customize-tab-icon/marquee.webp",
     screenshotSrcs: [
