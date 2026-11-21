@@ -51,7 +51,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
               </li>
               <li>
                 <a
-                  href="mailto:xminimalistcreativehub@gmail.com"
+                  href="mailto:yangjin.fe@gmail.com"
                   className="text-muted-foreground transition-colors hover:text-foreground"
                 >
                   {t.footer.email}
