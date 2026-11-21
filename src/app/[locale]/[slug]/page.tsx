@@ -94,7 +94,7 @@ export default async function ProductPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <header className="relative overflow-hidden border-b border-border/70">
+      <header className="relative overflow-hidden">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-grid opacity-30 [mask-image:radial-gradient(ellipse_at_30%_0%,black,transparent_70%)] dark:opacity-20"
@@ -164,7 +164,7 @@ export default async function ProductPage({ params }: PageProps) {
       </header>
 
       <div className="mx-auto w-full max-w-6xl px-6">
-        <div className="-mt-2 overflow-hidden rounded-2xl border shadow-sm sm:-mt-6">
+        <div className="relative -mt-2 overflow-hidden rounded-2xl border shadow-sm sm:-mt-6">
           <Image
             src={product.marquee}
             alt={`${product.name}: ${product.tagline}`}
